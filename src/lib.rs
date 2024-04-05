@@ -13,8 +13,7 @@ mod prelude {
 
 #[cfg(test)]
 mod tests {
-    use cosmwasm_std::{Coin, CosmosMsg, Deps, DepsMut, to_json_binary, WasmMsg};
-    use cosmwasm_std::testing::mock_dependencies;
+    use cosmwasm_std::{Coin, CosmosMsg, to_json_binary, WasmMsg};
     use super::prelude::*;
     use serde::{Deserialize, Serialize};
 

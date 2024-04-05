@@ -38,7 +38,7 @@ pub fn derive_query(input: TokenStream) -> TokenStream {
                     };
                 }
                 Ok(())
-            });
+            }).unwrap();
         } else {
             panic!("MetaList is only allowed")
         }
