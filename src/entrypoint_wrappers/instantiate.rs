@@ -1,8 +1,12 @@
-use cosmwasm_std::{Binary, Coin, CosmosMsg, StdResult, to_json_binary, WasmMsg};
+use cosmwasm_std::{to_json_binary, Binary, Coin, CosmosMsg, StdResult, WasmMsg};
 use serde::Serialize;
 
 pub trait WasmInstantiate: Serialize + Sized {
-    fn instantiate(&self, code_id: u64, label: impl Into<String>) -> StdResult<WasmInstantiateBuilder> {
+    fn instantiate(
+        &self,
+        code_id: u64,
+        label: impl Into<String>,
+    ) -> StdResult<WasmInstantiateBuilder> {
         WasmInstantiateBuilder::new(code_id, label, self)
     }
 }
@@ -12,11 +16,15 @@ pub struct WasmInstantiateBuilder {
     code_id: u64,
     msg: Binary,
     funds: Vec<Coin>,
-    label: String
+    label: String,
 }
 
 impl WasmInstantiateBuilder {
-    pub fn new<T: Serialize + Sized>(code_id: u64, label: impl Into<String>, msg: &T) -> StdResult<Self> {
+    pub fn new<T: Serialize + Sized>(
+        code_id: u64,
+        label: impl Into<String>,
+        msg: &T,
+    ) -> StdResult<Self> {
         Ok(Self {
             admin: None,
             code_id,
@@ -25,7 +33,7 @@ impl WasmInstantiateBuilder {
             label: label.into(),
         })
     }
-    
+
     pub fn with_admin(mut self, admin: impl Into<String>) -> Self {
         self.admin = Some(admin.into());
         self
@@ -44,7 +52,7 @@ impl Into<CosmosMsg> for WasmInstantiateBuilder {
             code_id: self.code_id,
             msg: self.msg,
             funds: self.funds,
-            label: self.label
+            label: self.label,
         })
     }
 }

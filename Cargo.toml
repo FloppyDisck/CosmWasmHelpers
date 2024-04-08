@@ -7,3 +7,5 @@ edition = "2021"
 cosmwasm-std = { version = "^1.5.0" }
 cosmwasmhelpers-derive = { version = "0.1.0", path = "cosmwasmhelpers-derive" }
 serde = { version = "^1.0", default-features = false, features = ["derive"] }
+schemars = "0.8"
+cw-storage-plus = "0.14.0"

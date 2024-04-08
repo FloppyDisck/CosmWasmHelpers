@@ -1,4 +1,4 @@
-use cosmwasm_std::{Binary, Coin, CosmosMsg, StdResult, to_json_binary, WasmMsg};
+use cosmwasm_std::{to_json_binary, Binary, Coin, CosmosMsg, StdResult, WasmMsg};
 use serde::Serialize;
 
 pub trait WasmExecute: Serialize + Sized {
@@ -6,7 +6,11 @@ pub trait WasmExecute: Serialize + Sized {
         WasmExecuteBuilder::new(addr, self)
     }
 
-    fn execute_with_funds(&self, addr: impl Into<String>, funds: Vec<Coin>) -> StdResult<WasmExecuteBuilder> {
+    fn execute_with_funds(
+        &self,
+        addr: impl Into<String>,
+        funds: Vec<Coin>,
+    ) -> StdResult<WasmExecuteBuilder> {
         WasmExecuteBuilder::new(addr, self).map(|res| res.with_funds(funds))
     }
 }
@@ -15,7 +19,7 @@ pub trait WasmExecute: Serialize + Sized {
 pub struct WasmExecuteBuilder {
     addr: String,
     msg: Binary,
-    funds: Vec<Coin>
+    funds: Vec<Coin>,
 }
 
 impl WasmExecuteBuilder {
@@ -38,8 +42,7 @@ impl Into<CosmosMsg> for WasmExecuteBuilder {
         CosmosMsg::Wasm(WasmMsg::Execute {
             contract_addr: self.addr,
             msg: self.msg,
-            funds: self.funds
+            funds: self.funds,
         })
     }
 }
-
