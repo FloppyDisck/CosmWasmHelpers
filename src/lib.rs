@@ -1,9 +1,11 @@
-mod entrypoint_wrappers;
-mod pagination;
+pub mod entrypoint_wrappers;
+pub mod pagination;
+pub mod fees;
 
 mod prelude {
     pub use crate::entrypoint_wrappers::*;
     pub use crate::pagination::*;
+    pub use crate::fees::*;
 }
 
 #[cfg(test)]
